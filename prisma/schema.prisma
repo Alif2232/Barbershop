@@ -1,0 +1,67 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Barber {
+  id          String   @id @default(cuid())
+  name        String
+  photo       String
+  bio         String
+  specialties String[]
+  services    Service[]
+  bookings    Booking[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Service {
+  id              String   @id @default(cuid())
+  name            String
+  description     String
+  price           Int
+  durationMinutes Int      @map("duration_minutes")
+  barberId        String?  @map("barber_id")
+  barber          Barber?  @relation(fields: [barberId], references: [id])
+  bookings        Booking[]
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model Booking {
+  id            String   @id @default(cuid())
+  customerName  String   @map("customer_name")
+  customerPhone String   @map("customer_phone")
+  serviceId     String   @map("service_id")
+  barberId      String   @map("barber_id")
+  date          String
+  timeSlot      String   @map("time_slot")
+  status        String   @default("pending")
+  service       Service  @relation(fields: [serviceId], references: [id])
+  barber        Barber   @relation(fields: [barberId], references: [id])
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt
+
+  @@map("bookings")
+}
+
+model Gallery {
+  id        String   @id @default(cuid())
+  imageUrl  String   @map("image_url")
+  caption   String
+  category  String
+  createdAt DateTime @default(now()) @map("created_at")
+}
+
+model Testimonial {
+  id           String   @id @default(cuid())
+  customerName String   @map("customer_name")
+  photo        String
+  rating       Int
+  review       String
+  createdAt    DateTime @default(now()) @map("created_at")
+}
