@@ -1,49 +1,77 @@
+"use client"
+
 import Link from "next/link"
-import { Scissors, CalendarCheck } from "lucide-react"
+import { Scissors, ArrowRight, Sparkles } from "lucide-react"
+import { useEffect, useState } from "react"
 
 export default function Hero() {
-  return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-zinc-900">
-      <div className="absolute inset-0 bg-gradient-to-br from-amber-900/40 via-zinc-900 to-zinc-900" />
-      <div className="absolute inset-0 bg-[url('/images/hero-bg.jpg')] bg-cover bg-center opacity-20" />
+  const [loaded, setLoaded] = useState(false)
+  useEffect(() => { setLoaded(true) }, [])
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <div className="flex justify-center mb-6">
-          <div className="inline-flex items-center gap-2 bg-amber-600/20 text-amber-400 px-4 py-2 rounded-full text-sm font-medium border border-amber-600/30">
-            <Scissors className="h-4 w-4" />
-            Premium Barbershop
+  return (
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-gradient-to-b from-purple-950/30 via-[#0a0a0a] to-[#0a0a0a]" />
+        <div className="absolute top-1/4 -left-32 w-96 h-96 bg-purple-700/20 rounded-full blur-[120px] animate-pulse-glow" />
+        <div className="absolute bottom-1/4 -right-32 w-80 h-80 bg-purple-600/15 rounded-full blur-[100px] animate-pulse-glow" style={{ animationDelay: "1.5s" }} />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-purple-500/5 rounded-full blur-[150px]" />
+      </div>
+
+      <div className="absolute inset-0 noise-overlay" />
+
+      <div
+        className={`relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center transition-all duration-1000 ${
+          loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+        }`}
+      >
+        <div className="flex justify-center mb-8">
+          <div className="inline-flex items-center gap-2 bg-purple-500/10 text-purple-300 px-5 py-2 rounded-full text-sm font-medium border border-purple-500/20 backdrop-blur-sm">
+            <Sparkles className="h-4 w-4" />
+            Premium Barbershop Experience
+            <Sparkles className="h-4 w-4" />
           </div>
         </div>
 
-        <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold text-white leading-tight mb-6">
-          Tampil <span className="text-amber-500">Rapi</span>,{" "}
-          <br className="hidden sm:block" />
-          Percaya <span className="text-amber-500">Diri</span>
+        <h1 className="font-[family-name:var(--font-display)] text-5xl sm:text-7xl md:text-8xl font-bold text-white leading-[1.1] mb-8 tracking-tight">
+          Tampil{" "}
+          <span className="purple-gradient-text italic">Berani</span>
+          <br />
+          <span className="relative">
+            Percaya{" "}
+            <span className="purple-gradient-text italic">Diri</span>
+            <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-3/4 h-1 purple-gradient-bg rounded-full opacity-60" />
+          </span>
         </h1>
 
-        <p className="max-w-xl mx-auto text-zinc-400 text-lg mb-10">
-          Nikmati pengalaman grooming terbaik dengan barber profesional kami.
-          Potongan rambut yang presisi, gaya yang sesuai kepribadianmu.
+        <p className="max-w-2xl mx-auto text-zinc-400 text-lg sm:text-xl mb-12 leading-relaxed font-light">
+          Nikmati pengalaman grooming kelas atas dengan barber profesional kami.
+          Setiap potongan adalah karya seni, setiap kunjungan adalah transformasi.
         </p>
 
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-5">
           <Link
             href="/booking"
-            className="inline-flex items-center gap-2 bg-amber-600 text-white px-8 py-3 rounded-full text-base font-semibold hover:bg-amber-700 transition-all hover:shadow-lg hover:shadow-amber-600/25"
+            className="group relative inline-flex items-center gap-3 px-8 py-4 rounded-full text-base font-semibold text-white overflow-hidden"
           >
-            <CalendarCheck className="h-5 w-5" />
-            Booking Sekarang
+            <span className="absolute inset-0 purple-gradient-bg transition-transform duration-500 group-hover:scale-105" />
+            <span className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <span className="relative z-10 flex items-center gap-2">
+              Booking Sekarang
+              <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
+            </span>
           </Link>
           <Link
             href="/layanan"
-            className="inline-flex items-center gap-2 border border-zinc-600 text-zinc-300 px-8 py-3 rounded-full text-base font-medium hover:border-amber-600 hover:text-amber-400 transition-colors"
+            className="group relative inline-flex items-center gap-2 px-8 py-4 rounded-full text-base font-medium text-zinc-300 border border-zinc-700 hover:border-purple-500/50 transition-all duration-300 overflow-hidden"
           >
-            Lihat Layanan
+            <span className="absolute inset-0 bg-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <span className="relative z-10">Lihat Layanan</span>
+            <Scissors className="h-4 w-4 relative z-10 transition-transform duration-300 group-hover:rotate-45" />
           </Link>
         </div>
       </div>
 
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-zinc-900 to-transparent" />
+      <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-[#0a0a0a] to-transparent z-10" />
     </section>
   )
 }

@@ -1,31 +1,20 @@
 import type { Metadata } from "next"
-import { Geist, Geist_Mono } from "next/font/google"
 import "./globals.css"
 import Navbar from "@/components/layout/Navbar"
 import Footer from "@/components/layout/Footer"
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-})
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-})
-
 export const metadata: Metadata = {
   title: {
-    default: "BarberQ - Premium Barbershop",
+    default: "BarberQ — Where Style Meets Precision",
     template: "%s | BarberQ",
   },
   description:
-    "Barbershop premium dengan pelayanan terbaik. Potong rambut, grooming, dan styling untuk pria modern. Booking online sekarang!",
-  keywords: ["barbershop", "potong rambut", "grooming", "barber", "Bandung"],
+    "Premium barbershop dengan pengalaman grooming kelas atas. Potong rambut, beard grooming, dan styling untuk pria modern. Booking online.",
+  keywords: ["barbershop", "potong rambut", "grooming", "barber", "Bandung", "premium"],
   openGraph: {
-    title: "BarberQ - Premium Barbershop",
+    title: "BarberQ — Where Style Meets Precision",
     description:
-      "Barbershop premium dengan pelayanan terbaik. Potong rambut, grooming, dan styling untuk pria modern.",
+      "Premium barbershop dengan pengalaman grooming kelas atas.",
     type: "website",
     locale: "id_ID",
   },
@@ -37,10 +26,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html
-      lang="id"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
+    <html lang="id" className="h-full">
       <body className="min-h-full flex flex-col">
         <Navbar />
         <main className="flex-1">{children}</main>
